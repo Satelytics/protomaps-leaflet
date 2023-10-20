@@ -128,15 +128,17 @@ export class PmtilesSource implements TileSource {
   p: PMTiles;
   controllers: any[];
   shouldCancelZooms: boolean;
+  headers: Headers | undefined;
 
-  constructor(url: string | PMTiles, shouldCancelZooms: boolean) {
+  constructor(url: string | PMTiles, shouldCancelZooms: boolean, headers?: Headers) {
     if (typeof url == "string") {
-      this.p = new PMTiles(url);
+      this.p = new PMTiles(url,undefined,undefined,headers);
     } else {
       this.p = url;
     }
     this.controllers = [];
     this.shouldCancelZooms = shouldCancelZooms;
+    this.headers = headers;
   }
 
   public async get(c: Zxy, tileSize: number): Promise<Map<string, Feature[]>> {
@@ -167,11 +169,13 @@ export class ZxySource implements TileSource {
   url: string;
   controllers: any[];
   shouldCancelZooms: boolean;
+  headers: Headers | undefined;
 
-  constructor(url: string, shouldCancelZooms: boolean) {
+  constructor(url: string, shouldCancelZooms: boolean, headers?: Headers) {
     this.url = url;
     this.controllers = [];
     this.shouldCancelZooms = shouldCancelZooms;
+    this.headers = headers;
   }
 
   public async get(c: Zxy, tileSize: number): Promise<Map<string, Feature[]>> {
@@ -192,7 +196,7 @@ export class ZxySource implements TileSource {
     this.controllers.push([c.z, controller]);
     const signal = controller.signal;
     return new Promise((resolve, reject) => {
-      fetch(url, { signal: signal })
+      fetch(url, { signal: signal , headers: this.headers })
         .then((resp) => {
           return resp.arrayBuffer();
         })

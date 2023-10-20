@@ -228,6 +228,7 @@ export interface SourceOptions {
   maxDataZoom?: number;
   url?: PMTiles | string;
   sources?: Record<string, SourceOptions>;
+  headers?: Headers;
 }
 
 export let sourcesToViews = (options: SourceOptions) => {
@@ -237,12 +238,12 @@ export let sourcesToViews = (options: SourceOptions) => {
     let source;
     if (typeof o.url === "string") {
       if (o.url.endsWith(".pmtiles")) {
-        source = new PmtilesSource(o.url, true);
+        source = new PmtilesSource(o.url, true, o.headers);
       } else {
-        source = new ZxySource(o.url, true);
+        source = new ZxySource(o.url, true, o.headers);
       }
     } else {
-      source = new PmtilesSource(o.url!, true);
+      source = new PmtilesSource(o.url!, true, o.headers);
     }
 
     let cache = new TileCache(source, (256 * 1) << level_diff);
