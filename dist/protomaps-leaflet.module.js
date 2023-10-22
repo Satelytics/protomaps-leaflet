@@ -3285,6 +3285,7 @@ function parseTile(buffer, tileSize) {
   let v = new import_vector_tile.VectorTile(new import_pbf.default(buffer));
   let result = new Map();
   for (let [key, value] of Object.entries(v.layers)) {
+    console.log(key);
     let features = [];
     let layer = value;
     for (let i2 = 0; i2 < layer.length; i2++) {
@@ -3292,6 +3293,7 @@ function parseTile(buffer, tileSize) {
       let numVertices = 0;
       for (let part of loaded.geom)
         numVertices += part.length;
+      console.log(layer.feature(i2).type);
       features.push({
         id: layer.feature(i2).id,
         geomType: layer.feature(i2).type,
@@ -3365,6 +3367,7 @@ var ZxySource = class {
         fetch(url, { signal, headers: this.headers }).then((resp) => {
           return resp.arrayBuffer();
         }).then((buffer) => {
+          console.log(buffer.byteLength);
           let result = parseTile(buffer, tileSize);
           resolve(result);
         }).catch((e2) => {
