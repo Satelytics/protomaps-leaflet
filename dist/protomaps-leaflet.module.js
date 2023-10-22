@@ -3704,6 +3704,7 @@ var sourcesToViews = (options) => {
       if (o2.url.endsWith(".pmtiles")) {
         source = new PmtilesSource(o2.url, true, o2.headers);
       } else {
+        console.log("zxy source", o2.headers);
         source = new ZxySource(o2.url, true, o2.headers);
       }
     } else {

@@ -240,6 +240,7 @@ export let sourcesToViews = (options: SourceOptions) => {
       if (o.url.endsWith(".pmtiles")) {
         source = new PmtilesSource(o.url, true, o.headers);
       } else {
+        console.log('zxy source', o.headers);
         source = new ZxySource(o.url, true, o.headers);
       }
     } else {

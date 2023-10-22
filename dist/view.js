@@ -185,6 +185,7 @@ export let sourcesToViews = (options) => {
                 source = new PmtilesSource(o.url, true, o.headers);
             }
             else {
+                console.log('zxy source', o.headers);
                 source = new ZxySource(o.url, true, o.headers);
             }
         }
