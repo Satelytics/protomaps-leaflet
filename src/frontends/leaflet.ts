@@ -60,6 +60,7 @@ interface LeafletLayerOptions {
   maxDataZoom?: number;
   url?: PMTiles | string;
   sources?: Record<string, SourceOptions>;
+  headers?: Headers;
 }
 
 const leafletLayer = (options: LeafletLayerOptions = {}): any => {
