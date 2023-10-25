@@ -67,7 +67,7 @@ function parseTile(buffer, tileSize) {
     let v = new VectorTile(new Protobuf(buffer));
     let result = new Map();
     for (let [key, value] of Object.entries(v.layers)) {
-        console.log(key);
+        //console.log(key);
         let features = [];
         let layer = value;
         for (let i = 0; i < layer.length; i++) {
@@ -75,7 +75,9 @@ function parseTile(buffer, tileSize) {
             let numVertices = 0;
             for (let part of loaded.geom)
                 numVertices += part.length;
-            console.log(layer.feature(i).type);
+            //console.log('layer length',layer.length);
+            //console.log('feature type',layer.feature(i).type);
+            //console.log('geom',loaded.geom);
             features.push({
                 id: layer.feature(i).id,
                 geomType: layer.feature(i).type,
@@ -156,7 +158,7 @@ export class ZxySource {
                     return resp.arrayBuffer();
                 })
                     .then((buffer) => {
-                    console.log(buffer.byteLength);
+                    //console.log('buffer size',buffer.byteLength);
                     let result = parseTile(buffer, tileSize);
                     resolve(result);
                 })
